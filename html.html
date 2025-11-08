@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تعليم JavaScript - للمبتدئين</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #ff8c00;
+            --secondary-color: #ff6b00;
+            --bg-dark: #1a1a1a;
+            --bg-light: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        .lesson-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-right: 5px solid var(--primary-color);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .lesson-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-title i {
+            font-size: 1.5rem;
+        }
+
+        .lesson-content {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .code-block code {
+            display: block;
+            padding-top: 25px;
+        }
+
+        .code-comment {
+            color: #75715e;
+        }
+
+        .code-keyword {
+            color: #f92672;
+        }
+
+        .code-string {
+            color: #e6db74;
+        }
+
+        .code-number {
+            color: #ae81ff;
+        }
+
+        .code-function {
+            color: #66d9ef;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .btn-run {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-run:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+        }
+
+        .output-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .output-box.show {
+            display: block;
+        }
+
+        .output-box h5 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .output-box pre {
+            color: #1b5e20;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateX(-5px);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffd700 100%);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tip-box {
+            background: #e3f2fd;
+            border-right: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .tip-box i {
+            color: #2196f3;
+            margin-left: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .warning-box i {
+            color: #ffc107;
+            margin-left: 10px;
+        }
+
+        /* Quiz Styles */
+        .quiz-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            color: #fff;
+        }
+
+        .quiz-box h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-question h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-options li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .quiz-option input[type="radio"] {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            border-color: #2e7d32;
+        }
+
+        .quiz-option.wrong {
+            background: #f44336;
+            border-color: #c62828;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-check {
+            background: #fff;
+            color: #667eea;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4caf50;
+        }
+
+        .quiz-result.error {
+            background: rgba(244, 67, 54, 0.3);
+            border: 2px solid #f44336;
+        }
+
+        .quiz-score {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .lesson-title {
+                font-size: 1.4rem;
+            }
+
+            .code-block {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fab fa-js-square"></i> منصة تعليم JavaScript</h1>
+            <p>تعلم JavaScript من الصفر بطريقة مبسطة وسهلة</p>
+            <div style="margin-top: 20px;">
+                <a href="css.html" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                    <i class="fab fa-css3-alt"></i> تعلم CSS مع HTML
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <h3><i class="fas fa-list"></i> المحتويات</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#intro">مقدمة عن JavaScript</a></li>
+                        <li><a href="#variables">المتغيرات</a></li>
+                        <li><a href="#data-types">أنواع البيانات</a></li>
+                        <li><a href="#operators">العوامل</a></li>
+                        <li><a href="#conditions">الشروط</a></li>
+                        <li><a href="#loops">الحلقات</a></li>
+                        <li><a href="#functions">الدوال</a></li>
+                        <li><a href="#arrays">المصفوفات</a></li>
+                        <li><a href="#objects">الكائنات</a></li>
+                        <li><a href="#dom">DOM</a></li>
+                        <li><a href="#events">الأحداث</a></li>
+                        <li><a href="#localStorage">LocalStorage</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Lesson 1: Introduction -->
+                <div class="lesson-card" id="intro">
+                    <div class="lesson-title">
+                        <i class="fas fa-play-circle"></i>
+                        <span>1. مقدمة عن JavaScript</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p><span class="highlight">JavaScript</span> هي لغة برمجة تستخدم لإنشاء صفحات ويب تفاعلية. يمكن استخدامها لإضافة حركة وتفاعل لصفحات HTML.</p>
+                        
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>نصيحة:</strong> JavaScript تعمل في المتصفح مباشرة، لا تحتاج لخادم!
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">كيفية استخدام JavaScript:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// يمكن كتابة JavaScript في 3 أماكن:</span>
+
+<span class="code-comment">// 1. داخل HTML مباشرة</span>
+<span class="code-keyword">&lt;script&gt;</span>
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"مرحباً!"</span>);
+<span class="code-keyword">&lt;/script&gt;</span>
+
+<span class="code-comment">// 2. في ملف خارجي</span>
+<span class="code-keyword">&lt;script src="js.js"&gt;&lt;/script&gt;</span>
+
+<span class="code-comment">// 3. في سطر واحد</span>
+<span class="code-keyword">&lt;button onclick="alert('مرحباً')"&gt;</span>اضغط<span class="code-keyword">&lt;/button&gt;</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Introduction -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: مقدمة عن JavaScript</h3>
+                        <div class="quiz-question">
+                            <h4>0. أين يمكن كتابة كود JavaScript؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz0" value="a">
+                                        <span>فقط في ملف خارجي</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz0" value="b">
+                                        <span>في HTML مباشرة، ملف خارجي، أو في سطر واحد</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz0" value="c">
+                                        <span>فقط في HTML</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result0"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(0, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 2: Variables -->
+                <div class="lesson-card" id="variables">
+                    <div class="lesson-title">
+                        <i class="fas fa-box"></i>
+                        <span>2. المتغيرات (Variables)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>المتغيرات هي <span class="highlight">صناديق</span> لحفظ البيانات. يمكنك تخزين أي نوع من البيانات فيها.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">طرق تعريف المتغيرات:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// 1. var (الطريقة القديمة)</span>
+<span class="code-keyword">var</span> <span class="code-function">name</span> = <span class="code-string">"أحمد"</span>;
+
+<span class="code-comment">// 2. let (يمكن تغييرها)</span>
+<span class="code-keyword">let</span> <span class="code-function">age</span> = <span class="code-number">25</span>;
+<span class="code-function">age</span> = <span class="code-number">26</span>; <span class="code-comment">// ✅ يمكن التغيير</span>
+
+<span class="code-comment">// 3. const (ثابتة - لا يمكن تغييرها)</span>
+<span class="code-keyword">const</span> <span class="code-function">pi</span> = <span class="code-number">3.14</span>;
+<span class="code-comment">// pi = 3.15; ❌ خطأ! لا يمكن التغيير</span>
+                            </code>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-code"></i> مثال عملي:</h4>
+                            <div class="code-block">
+                                <code>
+<span class="code-keyword">let</span> <span class="code-function">userName</span> = <span class="code-string">"محمد"</span>;
+<span class="code-keyword">let</span> <span class="code-function">userAge</span> = <span class="code-number">30</span>;
+
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"الاسم: "</span> + <span class="code-function">userName</span>);
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"العمر: "</span> + <span class="code-function">userAge</span>);
+                                </code>
+                            </div>
+                            <button class="btn-run" onclick="runExample('variables')">▶ تشغيل المثال</button>
+                            <div class="output-box" id="output-variables">
+                                <h5>النتيجة:</h5>
+                                <pre id="result-variables"></pre>
+                            </div>
+                        </div>
+
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>تحذير:</strong> استخدم <code>const</code> دائماً إلا إذا كنت تحتاج لتغيير القيمة، استخدم <code>let</code>.
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Variables -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: المتغيرات</h3>
+                        <div class="quiz-question">
+                            <h4>1. ما هي الطريقة الصحيحة لتعريف متغير يمكن تغييره؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="a">
+                                        <span>const name = "أحمد";</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="b">
+                                        <span>let name = "أحمد";</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="c">
+                                        <span>var name = "أحمد";</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result1"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(1, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 3: Data Types -->
+                <div class="lesson-card" id="data-types">
+                    <div class="lesson-title">
+                        <i class="fas fa-tags"></i>
+                        <span>3. أنواع البيانات (Data Types)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>JavaScript تدعم أنواع مختلفة من البيانات:</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// 1. String (نص)</span>
+<span class="code-keyword">let</span> <span class="code-function">name</span> = <span class="code-string">"أحمد"</span>;
+<span class="code-keyword">let</span> <span class="code-function">message</span> = <span class="code-string">'مرحباً'</span>;
+
+<span class="code-comment">// 2. Number (رقم)</span>
+<span class="code-keyword">let</span> <span class="code-function">age</span> = <span class="code-number">25</span>;
+<span class="code-keyword">let</span> <span class="code-function">price</span> = <span class="code-number">99.99</span>;
+
+<span class="code-comment">// 3. Boolean (صحيح/خطأ)</span>
+<span class="code-keyword">let</span> <span class="code-function">isActive</span> = <span class="code-keyword">true</span>;
+<span class="code-keyword">let</span> <span class="code-function">isDeleted</span> = <span class="code-keyword">false</span>;
+
+<span class="code-comment">// 4. Array (مصفوفة)</span>
+<span class="code-keyword">let</span> <span class="code-function">colors</span> = [<span class="code-string">"أحمر"</span>, <span class="code-string">"أزرق"</span>, <span class="code-string">"أخضر"</span>];
+
+<span class="code-comment">// 5. Object (كائن)</span>
+<span class="code-keyword">let</span> <span class="code-function">person</span> = {
+    <span class="code-function">name</span>: <span class="code-string">"أحمد"</span>,
+    <span class="code-function">age</span>: <span class="code-number">25</span>
+};
+
+<span class="code-comment">// 6. null (فارغ)</span>
+<span class="code-keyword">let</span> <span class="code-function">data</span> = <span class="code-keyword">null</span>;
+
+<span class="code-comment">// 7. undefined (غير معرف)</span>
+<span class="code-keyword">let</span> <span class="code-function">x</span>;
+<span class="code-comment">// x = undefined</span>
+                            </code>
+                        </div>
+
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>نصيحة:</strong> استخدم <code>typeof</code> لمعرفة نوع البيانات: <code>typeof name</code> يعطي <code>"string"</code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Data Types -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: أنواع البيانات</h3>
+                        <div class="quiz-question">
+                            <h4>2. ما هو نوع البيانات للقيمة التالية: <code>true</code>؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="a">
+                                        <span>String</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="b">
+                                        <span>Boolean</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="c">
+                                        <span>Number</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result2"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(2, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 4: Operators -->
+                <div class="lesson-card" id="operators">
+                    <div class="lesson-title">
+                        <i class="fas fa-calculator"></i>
+                        <span>4. العوامل (Operators)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">العوامل الحسابية:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">a</span> = <span class="code-number">10</span>;
+<span class="code-keyword">let</span> <span class="code-function">b</span> = <span class="code-number">5</span>;
+
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">a</span> + <span class="code-function">b</span>); <span class="code-comment">// 15 (جمع)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">a</span> - <span class="code-function">b</span>); <span class="code-comment">// 5 (طرح)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">a</span> * <span class="code-function">b</span>); <span class="code-comment">// 50 (ضرب)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">a</span> / <span class="code-function">b</span>); <span class="code-comment">// 2 (قسمة)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">a</span> % <span class="code-function">b</span>); <span class="code-comment">// 0 (باقي القسمة)</span>
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">عوامل المقارنة:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">x</span> = <span class="code-number">5</span>;
+<span class="code-keyword">let</span> <span class="code-function">y</span> = <span class="code-number">10</span>;
+
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> == <span class="code-function">y</span>); <span class="code-comment">// false (يساوي)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> != <span class="code-function">y</span>); <span class="code-comment">// true (لا يساوي)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> &lt; <span class="code-function">y</span>); <span class="code-comment">// true (أصغر من)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> &gt; <span class="code-function">y</span>); <span class="code-comment">// false (أكبر من)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> &lt;= <span class="code-function">y</span>); <span class="code-comment">// true (أصغر أو يساوي)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">x</span> &gt;= <span class="code-function">y</span>); <span class="code-comment">// false (أكبر أو يساوي)</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Operators -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: العوامل</h3>
+                        <div class="quiz-question">
+                            <h4>3. ما هي نتيجة: <code>10 % 3</code>؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="a">
+                                        <span>3</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="b">
+                                        <span>1</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="c">
+                                        <span>0</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result3"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(3, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 5: Conditions -->
+                <div class="lesson-card" id="conditions">
+                    <div class="lesson-title">
+                        <i class="fas fa-code-branch"></i>
+                        <span>5. الشروط (Conditions)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>الشروط تستخدم لاتخاذ قرارات في الكود بناءً على شروط معينة.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">if / else if / else:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">age</span> = <span class="code-number">20</span>;
+
+<span class="code-keyword">if</span> (<span class="code-function">age</span> &gt;= <span class="code-number">18</span>) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"يمكنك القيادة"</span>);
+} <span class="code-keyword">else if</span> (<span class="code-function">age</span> &gt;= <span class="code-number">16</span>) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"قريباً يمكنك القيادة"</span>);
+} <span class="code-keyword">else</span> {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"لا يمكنك القيادة بعد"</span>);
+}
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">Ternary Operator (عامل شرطي مختصر):</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">age</span> = <span class="code-number">20</span>;
+<span class="code-keyword">let</span> <span class="code-function">status</span> = (<span class="code-function">age</span> &gt;= <span class="code-number">18</span>) ? <span class="code-string">"بالغ"</span> : <span class="code-string">"قاصر"</span>;
+
+<span class="code-comment">// نفس الكود أعلاه لكن بطريقة مختصرة</span>
+<span class="code-comment">// إذا كان الشرط صحيح: استخدم "بالغ"</span>
+<span class="code-comment">// إذا كان خطأ: استخدم "قاصر"</span>
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">Switch:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">day</span> = <span class="code-string">"السبت"</span>;
+
+<span class="code-keyword">switch</span> (<span class="code-function">day</span>) {
+    <span class="code-keyword">case</span> <span class="code-string">"السبت"</span>:
+        <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"يوم إجازة!"</span>);
+        <span class="code-keyword">break</span>;
+    <span class="code-keyword">case</span> <span class="code-string">"الأحد"</span>:
+        <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"يوم عمل"</span>);
+        <span class="code-keyword">break</span>;
+    <span class="code-keyword">default</span>:
+        <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"يوم عادي"</span>);
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Conditions -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الشروط</h3>
+                        <div class="quiz-question">
+                            <h4>4. ما هي نتيجة الكود التالي؟<br>
+                            <code>let age = 20;<br>
+                            let status = (age >= 18) ? "بالغ" : "قاصر";</code></h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="a">
+                                        <span>"قاصر"</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="b">
+                                        <span>"بالغ"</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="c">
+                                        <span>undefined</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result4"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(4, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 6: Loops -->
+                <div class="lesson-card" id="loops">
+                    <div class="lesson-title">
+                        <i class="fas fa-redo"></i>
+                        <span>6. الحلقات (Loops)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>الحلقات تستخدم لتكرار تنفيذ كود معين عدة مرات.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">for Loop:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// طباعة الأرقام من 1 إلى 5</span>
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> <span class="code-function">i</span> = <span class="code-number">1</span>; <span class="code-function">i</span> &lt;= <span class="code-number">5</span>; <span class="code-function">i</span>++) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">i</span>);
+}
+<span class="code-comment">// النتيجة: 1, 2, 3, 4, 5</span>
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">while Loop:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">i</span> = <span class="code-number">1</span>;
+<span class="code-keyword">while</span> (<span class="code-function">i</span> &lt;= <span class="code-number">5</span>) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">i</span>);
+    <span class="code-function">i</span>++;
+}
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">forEach (للمصفوفات):</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">colors</span> = [<span class="code-string">"أحمر"</span>, <span class="code-string">"أزرق"</span>, <span class="code-string">"أخضر"</span>];
+
+<span class="code-function">colors</span>.<span class="code-function">forEach</span>(<span class="code-keyword">function</span>(<span class="code-function">color</span>) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">color</span>);
+});
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Loops -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الحلقات</h3>
+                        <div class="quiz-question">
+                            <h4>5. كم مرة سيتم تنفيذ الكود التالي؟<br>
+                            <code>for (let i = 0; i < 5; i++) { console.log(i); }</code></h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="a">
+                                        <span>4 مرات</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="b">
+                                        <span>5 مرات</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="c">
+                                        <span>6 مرات</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result5"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(5, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 7: Functions -->
+                <div class="lesson-card" id="functions">
+                    <div class="lesson-title">
+                        <i class="fas fa-cogs"></i>
+                        <span>7. الدوال (Functions)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>الدوال هي <span class="highlight">كود قابل لإعادة الاستخدام</span>. بدلاً من كتابة نفس الكود عدة مرات، نكتبه مرة واحدة في دالة.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">طريقة تعريف الدالة:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// 1. Function Declaration</span>
+<span class="code-keyword">function</span> <span class="code-function">greet</span>(<span class="code-function">name</span>) {
+    <span class="code-keyword">return</span> <span class="code-string">"مرحباً "</span> + <span class="code-function">name</span>;
+}
+
+<span class="code-comment">// 2. Arrow Function (الطريقة الحديثة)</span>
+<span class="code-keyword">const</span> <span class="code-function">greet2</span> = (<span class="code-function">name</span>) =&gt; {
+    <span class="code-keyword">return</span> <span class="code-string">"مرحباً "</span> + <span class="code-function">name</span>;
+};
+
+<span class="code-comment">// 3. Arrow Function مختصرة</span>
+<span class="code-keyword">const</span> <span class="code-function">greet3</span> = (<span class="code-function">name</span>) =&gt; <span class="code-string">"مرحباً "</span> + <span class="code-function">name</span>;
+
+<span class="code-comment">// استخدام الدالة</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">greet</span>(<span class="code-string">"أحمد"</span>)); <span class="code-comment">// "مرحباً أحمد"</span>
+                            </code>
+                        </div>
+
+                        <div class="example-box">
+                            <h4><i class="fas fa-code"></i> مثال: دالة جمع رقمين</h4>
+                            <div class="code-block">
+                                <code>
+<span class="code-keyword">function</span> <span class="code-function">add</span>(<span class="code-function">a</span>, <span class="code-function">b</span>) {
+    <span class="code-keyword">return</span> <span class="code-function">a</span> + <span class="code-function">b</span>;
+}
+
+<span class="code-keyword">let</span> <span class="code-function">result</span> = <span class="code-function">add</span>(<span class="code-number">5</span>, <span class="code-number">3</span>);
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">result</span>); <span class="code-comment">// 8</span>
+                                </code>
+                            </div>
+                            <button class="btn-run" onclick="runExample('functions')">▶ تشغيل المثال</button>
+                            <div class="output-box" id="output-functions">
+                                <h5>النتيجة:</h5>
+                                <pre id="result-functions"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Functions -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الدوال</h3>
+                        <div class="quiz-question">
+                            <h4>6. ما هي نتيجة الكود التالي؟<br>
+                            <code>const add = (a, b) => a + b;<br>
+                            console.log(add(3, 4));</code></h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="a">
+                                        <span>7</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="b">
+                                        <span>12</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="c">
+                                        <span>undefined</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result6"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(6, 'a')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 8: Arrays -->
+                <div class="lesson-card" id="arrays">
+                    <div class="lesson-title">
+                        <i class="fas fa-list"></i>
+                        <span>8. المصفوفات (Arrays)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>المصفوفات هي <span class="highlight">قوائم</span> لحفظ عدة قيم مرتبة.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">إنشاء مصفوفة:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">fruits</span> = [<span class="code-string">"تفاح"</span>, <span class="code-string">"موز"</span>, <span class="code-string">"برتقال"</span>];
+
+<span class="code-comment">// الوصول للعناصر</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">fruits</span>[<span class="code-number">0</span>]); <span class="code-comment">// "تفاح" (يبدأ من 0)</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">fruits</span>.<span class="code-function">length</span>); <span class="code-comment">// 3 (عدد العناصر)</span>
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">طرق شائعة للمصفوفات:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">fruits</span> = [<span class="code-string">"تفاح"</span>, <span class="code-string">"موز"</span>];
+
+<span class="code-comment">// إضافة عنصر في النهاية</span>
+<span class="code-function">fruits</span>.<span class="code-function">push</span>(<span class="code-string">"برتقال"</span>);
+
+<span class="code-comment">// حذف آخر عنصر</span>
+<span class="code-function">fruits</span>.<span class="code-function">pop</span>();
+
+<span class="code-comment">// إضافة عنصر في البداية</span>
+<span class="code-function">fruits</span>.<span class="code-function">unshift</span>(<span class="code-string">"فراولة"</span>);
+
+<span class="code-comment">// حذف أول عنصر</span>
+<span class="code-function">fruits</span>.<span class="code-function">shift</span>();
+
+<span class="code-comment">// البحث عن عنصر</span>
+<span class="code-function">fruits</span>.<span class="code-function">indexOf</span>(<span class="code-string">"موز"</span>); <span class="code-comment">// 1</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Arrays -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: المصفوفات</h3>
+                        <div class="quiz-question">
+                            <h4>7. ما هي نتيجة الكود التالي؟<br>
+                            <code>let fruits = ["تفاح", "موز"];<br>
+                            fruits.push("برتقال");<br>
+                            console.log(fruits.length);</code></h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="a">
+                                        <span>2</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="b">
+                                        <span>3</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="c">
+                                        <span>4</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result7"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(7, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 9: Objects -->
+                <div class="lesson-card" id="objects">
+                    <div class="lesson-title">
+                        <i class="fas fa-cube"></i>
+                        <span>9. الكائنات (Objects)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>الكائنات هي <span class="highlight">مجموعة من البيانات</span> مرتبطة ببعضها.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// إنشاء كائن</span>
+<span class="code-keyword">let</span> <span class="code-function">person</span> = {
+    <span class="code-function">name</span>: <span class="code-string">"أحمد"</span>,
+    <span class="code-function">age</span>: <span class="code-number">25</span>,
+    <span class="code-function">city</span>: <span class="code-string">"القاهرة"</span>,
+    <span class="code-function">isActive</span>: <span class="code-keyword">true</span>
+};
+
+<span class="code-comment">// الوصول للبيانات</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">person</span>.<span class="code-function">name</span>); <span class="code-comment">// "أحمد"</span>
+<span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">person</span>[<span class="code-string">"age"</span>]); <span class="code-comment">// 25</span>
+
+<span class="code-comment">// تعديل البيانات</span>
+<span class="code-function">person</span>.<span class="code-function">age</span> = <span class="code-number">26</span>;
+
+<span class="code-comment">// إضافة خاصية جديدة</span>
+<span class="code-function">person</span>.<span class="code-function">email</span> = <span class="code-string">"ahmed@example.com"</span>;
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Objects -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الكائنات</h3>
+                        <div class="quiz-question">
+                            <h4>8. كيف تصل لقيمة "أحمد" في الكائن التالي؟<br>
+                            <code>let person = { name: "أحمد", age: 25 };</code></h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="a">
+                                        <span>person[name]</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="b">
+                                        <span>person.name</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="c">
+                                        <span>person["name"]</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result8"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(8, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 10: DOM -->
+                <div class="lesson-card" id="dom">
+                    <div class="lesson-title">
+                        <i class="fas fa-code"></i>
+                        <span>10. DOM (Document Object Model)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>DOM هو <span class="highlight">تمثيل HTML في JavaScript</span>. يمكنك التلاعب بعناصر HTML.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">اختيار العناصر:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// اختيار عنصر واحد</span>
+<span class="code-keyword">let</span> <span class="code-function">title</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">"#title"</span>);
+<span class="code-keyword">let</span> <span class="code-function">button</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">".btn"</span>);
+
+<span class="code-comment">// اختيار عدة عناصر</span>
+<span class="code-keyword">let</span> <span class="code-function">allButtons</span> = <span class="code-function">document</span>.<span class="code-function">querySelectorAll</span>(<span class="code-string">".btn"</span>);
+
+<span class="code-comment">// الطرق القديمة</span>
+<span class="code-keyword">let</span> <span class="code-function">element</span> = <span class="code-function">document</span>.<span class="code-function">getElementById</span>(<span class="code-string">"myId"</span>);
+<span class="code-keyword">let</span> <span class="code-function">elements</span> = <span class="code-function">document</span>.<span class="code-function">getElementsByClassName</span>(<span class="code-string">"myClass"</span>);
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">تغيير المحتوى:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">title</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">"#title"</span>);
+
+<span class="code-comment">// تغيير النص</span>
+<span class="code-function">title</span>.<span class="code-function">textContent</span> = <span class="code-string">"عنوان جديد"</span>;
+<span class="code-function">title</span>.<span class="code-function">innerHTML</span> = <span class="code-string">"&lt;strong&gt;عنوان&lt;/strong&gt;"</span>;
+
+<span class="code-comment">// تغيير الألوان</span>
+<span class="code-function">title</span>.<span class="code-function">style</span>.<span class="code-function">color</span> = <span class="code-string">"red"</span>;
+<span class="code-function">title</span>.<span class="code-function">style</span>.<span class="code-function">backgroundColor</span> = <span class="code-string">"blue"</span>;
+
+<span class="code-comment">// إضافة/حذف class</span>
+<span class="code-function">title</span>.<span class="code-function">classList</span>.<span class="code-function">add</span>(<span class="code-string">"active"</span>);
+<span class="code-function">title</span>.<span class="code-function">classList</span>.<span class="code-function">remove</span>(<span class="code-string">"active"</span>);
+<span class="code-function">title</span>.<span class="code-function">classList</span>.<span class="code-function">toggle</span>(<span class="code-string">"active"</span>);
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for DOM -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: DOM</h3>
+                        <div class="quiz-question">
+                            <h4>9. ما هي الطريقة الصحيحة لاختيار عنصر بـ id="title"؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="a">
+                                        <span>document.querySelector("#title")</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="b">
+                                        <span>document.querySelector(".title")</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="c">
+                                        <span>document.querySelector("title")</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result9"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(9, 'a')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 11: Events -->
+                <div class="lesson-card" id="events">
+                    <div class="lesson-title">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>11. الأحداث (Events)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>الأحداث هي <span class="highlight">تفاعلات المستخدم</span> مثل النقر، الكتابة، التمرير.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">طريقة إضافة Event Listener:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">let</span> <span class="code-function">button</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">"#myButton"</span>);
+
+<span class="code-comment">// طريقة 1: addEventListener (الأفضل)</span>
+<span class="code-function">button</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"click"</span>, <span class="code-keyword">function</span>() {
+    <span class="code-function">alert</span>(<span class="code-string">"تم النقر!"</span>);
+});
+
+<span class="code-comment">// طريقة 2: Arrow Function</span>
+<span class="code-function">button</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"click"</span>, () =&gt; {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-string">"تم النقر!"</span>);
+});
+
+<span class="code-comment">// طريقة 3: في HTML مباشرة</span>
+<span class="code-comment">&lt;button onclick="alert('تم النقر!')"&gt;اضغط&lt;/button&gt;</span>
+                            </code>
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">أحداث شائعة:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// click - النقر</span>
+<span class="code-function">button</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"click"</span>, <span class="code-keyword">function</span>() {});
+
+<span class="code-comment">// mouseover - عند المرور بالماوس</span>
+<span class="code-function">button</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"mouseover"</span>, <span class="code-keyword">function</span>() {});
+
+<span class="code-comment">// input - عند الكتابة في input</span>
+<span class="code-keyword">let</span> <span class="code-function">input</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">"#myInput"</span>);
+<span class="code-function">input</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"input"</span>, <span class="code-keyword">function</span>(<span class="code-function">e</span>) {
+    <span class="code-function">console</span>.<span class="code-function">log</span>(<span class="code-function">e</span>.<span class="code-function">target</span>.<span class="code-function">value</span>);
+});
+
+<span class="code-comment">// submit - عند إرسال form</span>
+<span class="code-keyword">let</span> <span class="code-function">form</span> = <span class="code-function">document</span>.<span class="code-function">querySelector</span>(<span class="code-string">"#myForm"</span>);
+<span class="code-function">form</span>.<span class="code-function">addEventListener</span>(<span class="code-string">"submit"</span>, <span class="code-keyword">function</span>(<span class="code-function">e</span>) {
+    <span class="code-function">e</span>.<span class="code-function">preventDefault</span>(); <span class="code-comment">// منع الإرسال الافتراضي</span>
+});
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Events -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الأحداث</h3>
+                        <div class="quiz-question">
+                            <h4>10. ما هو الحدث المناسب لتنفيذ كود عند النقر على زر؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz10" value="a">
+                                        <span>"mouseover"</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz10" value="b">
+                                        <span>"click"</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz10" value="c">
+                                        <span>"input"</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result10"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(10, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 12: LocalStorage -->
+                <div class="lesson-card" id="localStorage">
+                    <div class="lesson-title">
+                        <i class="fas fa-database"></i>
+                        <span>12. LocalStorage</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>LocalStorage يستخدم <span class="highlight">لحفظ البيانات</span> في المتصفح حتى بعد إغلاقه.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// حفظ بيانات</span>
+<span class="code-function">localStorage</span>.<span class="code-function">setItem</span>(<span class="code-string">"name"</span>, <span class="code-string">"أحمد"</span>);
+<span class="code-function">localStorage</span>.<span class="code-function">setItem</span>(<span class="code-string">"age"</span>, <span class="code-number">25</span>);
+
+<span class="code-comment">// قراءة بيانات</span>
+<span class="code-keyword">let</span> <span class="code-function">name</span> = <span class="code-function">localStorage</span>.<span class="code-function">getItem</span>(<span class="code-string">"name"</span>);
+<span class="code-keyword">let</span> <span class="code-function">age</span> = <span class="code-function">localStorage</span>.<span class="code-function">getItem</span>(<span class="code-string">"age"</span>);
+
+<span class="code-comment">// حذف بيانات</span>
+<span class="code-function">localStorage</span>.<span class="code-function">removeItem</span>(<span class="code-string">"name"</span>);
+
+<span class="code-comment">// حذف كل البيانات</span>
+<span class="code-function">localStorage</span>.<span class="code-function">clear</span>();
+
+<span class="code-comment">// حفظ كائن (يجب تحويله لـ JSON)</span>
+<span class="code-keyword">let</span> <span class="code-function">user</span> = { <span class="code-function">name</span>: <span class="code-string">"أحمد"</span>, <span class="code-function">age</span>: <span class="code-number">25</span> };
+<span class="code-function">localStorage</span>.<span class="code-function">setItem</span>(<span class="code-string">"user"</span>, <span class="code-function">JSON</span>.<span class="code-function">stringify</span>(<span class="code-function">user</span>));
+
+<span class="code-comment">// قراءة كائن</span>
+<span class="code-keyword">let</span> <span class="code-function">savedUser</span> = <span class="code-function">JSON</span>.<span class="code-function">parse</span>(<span class="code-function">localStorage</span>.<span class="code-function">getItem</span>(<span class="code-string">"user"</span>));
+                            </code>
+                        </div>
+
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>نصيحة:</strong> LocalStorage يحفظ البيانات كـ string فقط! استخدم <code>JSON.stringify()</code> و <code>JSON.parse()</code> للكائنات.
+                        </div>
+                    </div>
+
+                    <!-- Quiz for LocalStorage -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: LocalStorage</h3>
+                        <div class="quiz-question">
+                            <h4>11. ما هي الطريقة الصحيحة لحفظ كائن في LocalStorage؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz11" value="a">
+                                        <span>localStorage.setItem("user", user);</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz11" value="b">
+                                        <span>localStorage.setItem("user", JSON.stringify(user));</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz11" value="c">
+                                        <span>localStorage.save("user", user);</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result11"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(11, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="lesson-card" style="text-align: center; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: #fff;">
+                    <h2 style="color: #fff; margin-bottom: 15px;"><i class="fas fa-graduation-cap"></i> تهانينا!</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">لقد تعلمت أساسيات JavaScript! الآن يمكنك البدء في بناء مشاريعك الخاصة.</p>
+                    <p style="font-size: 1rem; opacity: 0.9;">استمر في الممارسة والتجربة. البرمجة تحتاج للصبر والمثابرة 💪</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.sidebar-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Function to run examples
+        function runExample(type) {
+            let outputBox = document.getElementById('output-' + type);
+            let resultElement = document.getElementById('result-' + type);
+            let result = '';
+
+            switch(type) {
+                case 'variables':
+                    let userName = "محمد";
+                    let userAge = 30;
+                    result = "الاسم: " + userName + "\nالعمر: " + userAge;
+                    break;
+                
+                case 'functions':
+                    function add(a, b) {
+                        return a + b;
+                    }
+                    let resultCalc = add(5, 3);
+                    result = "نتيجة جمع 5 + 3 = " + resultCalc;
+                    break;
+            }
+
+            resultElement.textContent = result;
+            outputBox.classList.add('show');
+        }
+
+        // Quiz Function - Auto check when option is selected
+        function checkQuiz(quizNum, correctAnswer) {
+            const selectedOption = document.querySelector(`input[name="quiz${quizNum}"]:checked`);
+            const resultDiv = document.getElementById(`result${quizNum}`);
+            
+            if (!selectedOption) {
+                return;
+            }
+
+            const userAnswer = selectedOption.value;
+            const options = document.querySelectorAll(`input[name="quiz${quizNum}"]`);
+            
+            // Disable all options
+            options.forEach(opt => {
+                opt.disabled = true;
+                const label = opt.closest('label');
+                label.classList.add('disabled');
+            });
+
+            // Check answer
+            if (userAnswer === correctAnswer) {
+                selectedOption.closest('label').classList.add('correct');
+                resultDiv.innerHTML = '<strong style="color: #fff;">✅ إجابة صحيحة! أحسنت!</strong>';
+                resultDiv.className = 'quiz-result show success';
+            } else {
+                selectedOption.closest('label').classList.add('wrong');
+                // Highlight correct answer
+                options.forEach(opt => {
+                    if (opt.value === correctAnswer) {
+                        opt.closest('label').classList.add('correct');
+                    }
+                });
+                resultDiv.innerHTML = '<strong style="color: #fff;">❌ إجابة خاطئة. الإجابة الصحيحة موضحة باللون الأخضر!</strong>';
+                resultDiv.className = 'quiz-result show error';
+            }
+
+            // Hide check button
+            const checkButton = selectedOption.closest('.quiz-box').querySelector('.btn-check');
+            if (checkButton) {
+                checkButton.style.display = 'none';
+            }
+
+            // Update score
+            updateQuizScore();
+        }
+
+        // Initialize auto-check for all quizzes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz 0
+            setupAutoCheck(0, 'b');
+            // Quiz 1
+            setupAutoCheck(1, 'b');
+            // Quiz 2
+            setupAutoCheck(2, 'b');
+            // Quiz 3
+            setupAutoCheck(3, 'b');
+            // Quiz 4
+            setupAutoCheck(4, 'b');
+            // Quiz 5
+            setupAutoCheck(5, 'b');
+            // Quiz 6
+            setupAutoCheck(6, 'a');
+            // Quiz 7
+            setupAutoCheck(7, 'b');
+            // Quiz 8
+            setupAutoCheck(8, 'b');
+            // Quiz 9
+            setupAutoCheck(9, 'a');
+            // Quiz 10
+            setupAutoCheck(10, 'b');
+            // Quiz 11
+            setupAutoCheck(11, 'b');
+        });
+
+        // Setup auto-check for each quiz
+        function setupAutoCheck(quizNum, correctAnswer) {
+            const options = document.querySelectorAll(`input[name="quiz${quizNum}"]`);
+            options.forEach(option => {
+                option.addEventListener('change', function() {
+                    if (this.checked) {
+                        checkQuiz(quizNum, correctAnswer);
+                    }
+                });
+            });
+        }
+
+        // Update Quiz Score
+        function updateQuizScore() {
+            const allQuizzes = document.querySelectorAll('.quiz-box');
+            let totalQuizzes = allQuizzes.length;
+            let correctAnswers = 0;
+
+            allQuizzes.forEach(quiz => {
+                const resultDiv = quiz.querySelector('.quiz-result.show');
+                if (resultDiv && resultDiv.classList.contains('success')) {
+                    correctAnswers++;
+                }
+            });
+
+            // Show score if all quizzes are answered
+            const answeredQuizzes = document.querySelectorAll('.quiz-result.show').length;
+            if (answeredQuizzes === totalQuizzes) {
+                let scoreBox = document.getElementById('final-score');
+                if (!scoreBox) {
+                    scoreBox = document.createElement('div');
+                    scoreBox.id = 'final-score';
+                    scoreBox.className = 'quiz-score';
+                    document.querySelector('.lesson-card:last-of-type').appendChild(scoreBox);
+                }
+                const percentage = Math.round((correctAnswers / totalQuizzes) * 100);
+                scoreBox.innerHTML = `
+                    <h3 style="color: #fff; margin-bottom: 10px;">🎯 النتيجة النهائية</h3>
+                    <p style="font-size: 1.5rem; margin: 10px 0;">
+                        ${correctAnswers} من ${totalQuizzes} صحيح
+                    </p>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">
+                        ${percentage}%
+                    </p>
+                    <p style="margin-top: 15px;">
+                        ${percentage >= 80 ? '🌟 ممتاز! أنت تفهم JavaScript جيداً!' : 
+                          percentage >= 60 ? '👍 جيد! استمر في التعلم!' : 
+                          '💪 لا بأس، استمر في الممارسة!'}
+                    </p>
+                `;
+            }
+        }
+
+        // Reset Quiz (optional - can be added later)
+        function resetQuiz(quizNum) {
+            const options = document.querySelectorAll(`input[name="quiz${quizNum}"]`);
+            const resultDiv = document.getElementById(`result${quizNum}`);
+            
+            options.forEach(opt => {
+                opt.disabled = false;
+                opt.checked = false;
+                const label = opt.closest('label');
+                label.classList.remove('correct', 'wrong', 'disabled');
+            });
+            
+            resultDiv.className = 'quiz-result';
+            resultDiv.innerHTML = '';
+        }
+    </script>
+</body>
+</html>
