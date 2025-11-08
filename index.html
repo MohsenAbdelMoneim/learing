@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        
+ 
         :root {
             --primary-color: #ff8c00;
             --secondary-color: #ff6b00;
@@ -387,7 +389,104 @@
             font-size: 1.2rem;
         }
 
+        /* Author Signature Styles */
+        .author-signature {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideInLeft 0.8s ease-out, pulse 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .author-signature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        .author-signature i {
+            font-size: 1.5rem;
+            color: #ffd700;
+            animation: rotate 3s linear infinite;
+        }
+
+        .author-signature .author-name {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .author-signature .author-name::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-150%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 35px rgba(102, 126, 234, 0.7);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
         @media (max-width: 768px) {
+            .author-signature {
+                bottom: 10px;
+                left: 10px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .author-signature .author-name {
+                font-size: 0.95rem;
+            }
+
             .header h1 {
                 font-size: 1.8rem;
             }
@@ -1356,6 +1455,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Author Signature -->
+    <div class="author-signature">
+        <i class="fas fa-code"></i>
+        <span class="author-name">MOHSEN TAREK</span>
     </div>
 
     <script>
