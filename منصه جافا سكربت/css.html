@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تعليم CSS مع HTML - للمبتدئين</title>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --bg-dark: #1a1a1a;
+            --bg-light: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        .lesson-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-right: 5px solid var(--primary-color);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .lesson-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-title i {
+            font-size: 1.5rem;
+        }
+
+        .lesson-content {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'CSS/HTML';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #888;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .code-block code {
+            display: block;
+            padding-top: 25px;
+        }
+
+        .code-comment {
+            color: #75715e;
+        }
+
+        .code-keyword {
+            color: #f92672;
+        }
+
+        .code-string {
+            color: #e6db74;
+        }
+
+        .code-number {
+            color: #ae81ff;
+        }
+
+        .code-function {
+            color: #66d9ef;
+        }
+
+        .code-property {
+            color: #a6e22e;
+        }
+
+        .code-selector {
+            color: #f92672;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .example-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateX(-5px);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffd700 100%);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tip-box {
+            background: #e3f2fd;
+            border-right: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .tip-box i {
+            color: #2196f3;
+            margin-left: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .warning-box i {
+            color: #ffc107;
+            margin-left: 10px;
+        }
+
+        /* Quiz Styles */
+        .quiz-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            color: #fff;
+        }
+
+        .quiz-box h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-question h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-options li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .quiz-option input[type="radio"] {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            border-color: #2e7d32;
+        }
+
+        .quiz-option.wrong {
+            background: #f44336;
+            border-color: #c62828;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result.success {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4caf50;
+        }
+
+        .quiz-result.error {
+            background: rgba(244, 67, 54, 0.3);
+            border: 2px solid #f44336;
+        }
+
+        .quiz-score {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .lesson-title {
+                font-size: 1.4rem;
+            }
+
+            .code-block {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fab fa-css3-alt"></i> منصة تعليم CSS مع HTML</h1>
+            <p>تعلم CSS و HTML من الصفر بطريقة مبسطة وسهلة</p>
+            <div style="margin-top: 20px;">
+                <a href="js.html" style="background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%); color: #fff; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);">
+                    <i class="fab fa-js-square"></i> تعلم JavaScript
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <h3><i class="fas fa-list"></i> المحتويات</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#intro">مقدمة عن HTML</a></li>
+                        <li><a href="#html-basics">أساسيات HTML</a></li>
+                        <li><a href="#css-intro">مقدمة عن CSS</a></li>
+                        <li><a href="#selectors">المحددات (Selectors)</a></li>
+                        <li><a href="#colors">الألوان</a></li>
+                        <li><a href="#text">النصوص</a></li>
+                        <li><a href="#box-model">Box Model</a></li>
+                        <li><a href="#flexbox">Flexbox</a></li>
+                        <li><a href="#responsive">Responsive Design</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Lesson 1: HTML Introduction -->
+                <div class="lesson-card" id="intro">
+                    <div class="lesson-title">
+                        <i class="fab fa-html5"></i>
+                        <span>1. مقدمة عن HTML</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p><span class="highlight">HTML</span> هي لغة ترميز تستخدم لإنشاء هيكل صفحات الويب. HTML تعني HyperText Markup Language.</p>
+                        
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>نصيحة:</strong> HTML هي الهيكل، CSS هي التصميم، JavaScript هي التفاعل!
+                        </div>
+
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">بنية HTML الأساسية:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-keyword">&lt;!DOCTYPE html&gt;</span>
+<span class="code-keyword">&lt;html</span> <span class="code-property">lang</span>=<span class="code-string">"ar"</span><span class="code-keyword">&gt;</span>
+<span class="code-keyword">&lt;head&gt;</span>
+    <span class="code-keyword">&lt;meta</span> <span class="code-property">charset</span>=<span class="code-string">"UTF-8"</span><span class="code-keyword">&gt;</span>
+    <span class="code-keyword">&lt;title&gt;</span>عنوان الصفحة<span class="code-keyword">&lt;/title&gt;</span>
+<span class="code-keyword">&lt;/head&gt;</span>
+<span class="code-keyword">&lt;body&gt;</span>
+    <span class="code-comment">&lt;!-- المحتوى هنا --&gt;</span>
+<span class="code-keyword">&lt;/body&gt;</span>
+<span class="code-keyword">&lt;/html&gt;</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for HTML Intro -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: مقدمة عن HTML</h3>
+                        <div class="quiz-question">
+                            <h4>1. ماذا تعني HTML؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="a">
+                                        <span>HyperText Markup Language</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="b">
+                                        <span>High Tech Modern Language</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz1" value="c">
+                                        <span>HyperText Modern Language</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result1"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(1, 'a')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 2: HTML Basics -->
+                <div class="lesson-card" id="html-basics">
+                    <div class="lesson-title">
+                        <i class="fas fa-code"></i>
+                        <span>2. أساسيات HTML</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>HTML تستخدم <span class="highlight">الوسوم (Tags)</span> لإنشاء عناصر الصفحة.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">الوسوم الأساسية:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">&lt;!-- العناوين --&gt;</span>
+<span class="code-keyword">&lt;h1&gt;</span>عنوان رئيسي<span class="code-keyword">&lt;/h1&gt;</span>
+<span class="code-keyword">&lt;h2&gt;</span>عنوان فرعي<span class="code-keyword">&lt;/h2&gt;</span>
+
+<span class="code-comment">&lt;!-- الفقرات --&gt;</span>
+<span class="code-keyword">&lt;p&gt;</span>هذه فقرة نصية<span class="code-keyword">&lt;/p&gt;</span>
+
+<span class="code-comment">&lt;!-- الروابط --&gt;</span>
+<span class="code-keyword">&lt;a</span> <span class="code-property">href</span>=<span class="code-string">"https://example.com"</span><span class="code-keyword">&gt;</span>رابط<span class="code-keyword">&lt;/a&gt;</span>
+
+<span class="code-comment">&lt;!-- الصور --&gt;</span>
+<span class="code-keyword">&lt;img</span> <span class="code-property">src</span>=<span class="code-string">"image.jpg"</span> <span class="code-property">alt</span>=<span class="code-string">"وصف الصورة"</span><span class="code-keyword">&gt;</span>
+
+<span class="code-comment">&lt;!-- الأزرار --&gt;</span>
+<span class="code-keyword">&lt;button&gt;</span>اضغط هنا<span class="code-keyword">&lt;/button&gt;</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for HTML Basics -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: أساسيات HTML</h3>
+                        <div class="quiz-question">
+                            <h4>2. ما هو الوسم الصحيح لإنشاء رابط؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="a">
+                                        <span>&lt;link&gt;</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="b">
+                                        <span>&lt;a&gt;</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz2" value="c">
+                                        <span>&lt;url&gt;</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result2"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(2, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 3: CSS Introduction -->
+                <div class="lesson-card" id="css-intro">
+                    <div class="lesson-title">
+                        <i class="fab fa-css3-alt"></i>
+                        <span>3. مقدمة عن CSS</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p><span class="highlight">CSS</span> هي لغة تصميم تستخدم لتنسيق صفحات HTML. CSS تعني Cascading Style Sheets.</p>
+                        
+                        <h4 style="color: var(--primary-color); margin: 20px 0 10px 0;">طرق إضافة CSS:</h4>
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">// 1. داخل HTML مباشرة</span>
+<span class="code-keyword">&lt;style&gt;</span>
+    <span class="code-selector">h1</span> {
+        <span class="code-property">color</span>: <span class="code-string">red</span>;
+    }
+<span class="code-keyword">&lt;/style&gt;</span>
+
+<span class="code-comment">// 2. في ملف خارجي</span>
+<span class="code-keyword">&lt;link</span> <span class="code-property">rel</span>=<span class="code-string">"stylesheet"</span> <span class="code-property">href</span>=<span class="code-string">"style.css"</span><span class="code-keyword">&gt;</span>
+
+<span class="code-comment">// 3. في السطر مباشرة</span>
+<span class="code-keyword">&lt;h1</span> <span class="code-property">style</span>=<span class="code-string">"color: red;"</span><span class="code-keyword">&gt;</span>عنوان<span class="code-keyword">&lt;/h1&gt;</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for CSS Intro -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: مقدمة عن CSS</h3>
+                        <div class="quiz-question">
+                            <h4>3. ماذا تعني CSS؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="a">
+                                        <span>Computer Style Sheets</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="b">
+                                        <span>Cascading Style Sheets</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz3" value="c">
+                                        <span>Creative Style Sheets</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result3"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(3, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 4: Selectors -->
+                <div class="lesson-card" id="selectors">
+                    <div class="lesson-title">
+                        <i class="fas fa-bullseye"></i>
+                        <span>4. المحددات (Selectors)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>المحددات تستخدم <span class="highlight">لاختيار العناصر</span> التي تريد تنسيقها.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">/* 1. Element Selector (اختيار العنصر) */</span>
+<span class="code-selector">p</span> {
+    <span class="code-property">color</span>: <span class="code-string">blue</span>;
+}
+
+<span class="code-comment">/* 2. Class Selector (اختيار الـ class) */</span>
+<span class="code-selector">.my-class</span> {
+    <span class="code-property">color</span>: <span class="code-string">red</span>;
+}
+
+<span class="code-comment">/* 3. ID Selector (اختيار الـ id) */</span>
+<span class="code-selector">#my-id</span> {
+    <span class="code-property">color</span>: <span class="code-string">green</span>;
+}
+
+<span class="code-comment">/* 4. Universal Selector (اختيار كل العناصر) */</span>
+<span class="code-selector">*</span> {
+    <span class="code-property">margin</span>: <span class="code-number">0</span>;
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Selectors -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: المحددات</h3>
+                        <div class="quiz-question">
+                            <h4>4. ما هو المحدد الصحيح لاختيار عنصر بـ class="box"؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="a">
+                                        <span>#box</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="b">
+                                        <span>.box</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz4" value="c">
+                                        <span>box</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result4"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(4, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 5: Colors -->
+                <div class="lesson-card" id="colors">
+                    <div class="lesson-title">
+                        <i class="fas fa-palette"></i>
+                        <span>5. الألوان (Colors)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>يمكن تحديد الألوان في CSS بعدة طرق:</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">/* 1. اسم اللون */</span>
+<span class="code-selector">p</span> {
+    <span class="code-property">color</span>: <span class="code-string">red</span>;
+}
+
+<span class="code-comment">/* 2. Hex Code */</span>
+<span class="code-selector">p</span> {
+    <span class="code-property">color</span>: <span class="code-string">#ff0000</span>; <span class="code-comment">/* أحمر */</span>
+}
+
+<span class="code-comment">/* 3. RGB */</span>
+<span class="code-selector">p</span> {
+    <span class="code-property">color</span>: <span class="code-function">rgb</span>(<span class="code-number">255</span>, <span class="code-number">0</span>, <span class="code-number">0</span>);
+}
+
+<span class="code-comment">/* 4. RGBA (مع الشفافية) */</span>
+<span class="code-selector">p</span> {
+    <span class="code-property">color</span>: <span class="code-function">rgba</span>(<span class="code-number">255</span>, <span class="code-number">0</span>, <span class="code-number">0</span>, <span class="code-number">0.5</span>);
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Colors -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: الألوان</h3>
+                        <div class="quiz-question">
+                            <h4>5. ما هو الكود الصحيح للون الأحمر باستخدام Hex؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="a">
+                                        <span>#0000ff</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="b">
+                                        <span>#ff0000</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz5" value="c">
+                                        <span>#00ff00</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result5"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(5, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 6: Text -->
+                <div class="lesson-card" id="text">
+                    <div class="lesson-title">
+                        <i class="fas fa-font"></i>
+                        <span>6. النصوص (Text)</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>CSS يوفر خصائص كثيرة لتنسيق النصوص:</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-selector">p</span> {
+    <span class="code-property">font-size</span>: <span class="code-number">16px</span>;
+    <span class="code-property">font-weight</span>: <span class="code-string">bold</span>;
+    <span class="code-property">text-align</span>: <span class="code-string">center</span>;
+    <span class="code-property">text-decoration</span>: <span class="code-string">underline</span>;
+    <span class="code-property">line-height</span>: <span class="code-number">1.5</span>;
+    <span class="code-property">font-family</span>: <span class="code-string">Arial, sans-serif</span>;
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Text -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: النصوص</h3>
+                        <div class="quiz-question">
+                            <h4>6. ما هي الخاصية المستخدمة لتغيير حجم الخط؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="a">
+                                        <span>text-size</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="b">
+                                        <span>font-size</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz6" value="c">
+                                        <span>size</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result6"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(6, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 7: Box Model -->
+                <div class="lesson-card" id="box-model">
+                    <div class="lesson-title">
+                        <i class="fas fa-square"></i>
+                        <span>7. Box Model</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>Box Model هو <span class="highlight">نموذج</span> يوضح كيفية حساب مساحة العنصر.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-selector">div</span> {
+    <span class="code-property">width</span>: <span class="code-number">200px</span>;
+    <span class="code-property">height</span>: <span class="code-number">100px</span>;
+    <span class="code-property">padding</span>: <span class="code-number">20px</span>; <span class="code-comment">/* المسافة الداخلية */</span>
+    <span class="code-property">margin</span>: <span class="code-number">10px</span>; <span class="code-comment">/* المسافة الخارجية */</span>
+    <span class="code-property">border</span>: <span class="code-number">2px</span> <span class="code-string">solid</span> <span class="code-string">black</span>;
+}
+
+<span class="code-comment">/* box-sizing: border-box يجعل padding و border داخل العرض */</span>
+<span class="code-selector">*</span> {
+    <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Box Model -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: Box Model</h3>
+                        <div class="quiz-question">
+                            <h4>7. ما هي الخاصية المستخدمة للمسافة الخارجية للعنصر؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="a">
+                                        <span>padding</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="b">
+                                        <span>margin</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz7" value="c">
+                                        <span>spacing</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result7"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(7, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 8: Flexbox -->
+                <div class="lesson-card" id="flexbox">
+                    <div class="lesson-title">
+                        <i class="fas fa-th"></i>
+                        <span>8. Flexbox</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>Flexbox يستخدم <span class="highlight">لترتيب العناصر</span> بسهولة.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-selector">.container</span> {
+    <span class="code-property">display</span>: <span class="code-string">flex</span>;
+    <span class="code-property">justify-content</span>: <span class="code-string">center</span>; <span class="code-comment">/* ترتيب أفقي */</span>
+    <span class="code-property">align-items</span>: <span class="code-string">center</span>; <span class="code-comment">/* ترتيب عمودي */</span>
+    <span class="code-property">flex-direction</span>: <span class="code-string">row</span>; <span class="code-comment">/* row أو column */</span>
+    <span class="code-property">gap</span>: <span class="code-number">20px</span>; <span class="code-comment">/* المسافة بين العناصر */</span>
+}
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Flexbox -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: Flexbox</h3>
+                        <div class="quiz-question">
+                            <h4>8. ما هي الخاصية المستخدمة لترتيب العناصر أفقياً في Flexbox؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="a">
+                                        <span>align-items</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="b">
+                                        <span>justify-content</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz8" value="c">
+                                        <span>flex-direction</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result8"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(8, 'b')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Lesson 9: Responsive Design -->
+                <div class="lesson-card" id="responsive">
+                    <div class="lesson-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>9. Responsive Design</span>
+                    </div>
+                    <div class="lesson-content">
+                        <p>Responsive Design يجعل الموقع <span class="highlight">متجاوب</span> مع جميع أحجام الشاشات.</p>
+                        
+                        <div class="code-block">
+                            <code>
+<span class="code-comment">/* Media Queries */</span>
+<span class="code-keyword">@media</span> (<span class="code-property">max-width</span>: <span class="code-number">768px</span>) {
+    <span class="code-selector">.container</span> {
+        <span class="code-property">flex-direction</span>: <span class="code-string">column</span>;
+    }
+}
+
+<span class="code-comment">/* Viewport Meta Tag في HTML */</span>
+<span class="code-comment">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span>
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Quiz for Responsive -->
+                    <div class="quiz-box">
+                        <h3><i class="fas fa-question-circle"></i> اختبار: Responsive Design</h3>
+                        <div class="quiz-question">
+                            <h4>9. ما هي الطريقة المستخدمة لجعل التصميم متجاوب؟</h4>
+                            <ul class="quiz-options">
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="a">
+                                        <span>Media Queries</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="b">
+                                        <span>Flex Queries</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="quiz-option">
+                                        <input type="radio" name="quiz9" value="c">
+                                        <span>Screen Queries</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="quiz-result" id="result9"></div>
+                        </div>
+                        <button class="btn-check" onclick="checkQuiz(9, 'a')" style="display: none;">تحقق من الإجابة</button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="lesson-card" style="text-align: center; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: #fff;">
+                    <h2 style="color: #fff; margin-bottom: 15px;"><i class="fas fa-graduation-cap"></i> تهانينا!</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">لقد تعلمت أساسيات CSS و HTML! الآن يمكنك تصميم صفحات ويب جميلة.</p>
+                    <p style="font-size: 1rem; opacity: 0.9;">استمر في الممارسة والتجربة 💪</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.sidebar-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Quiz Function - Auto check when option is selected
+        function checkQuiz(quizNum, correctAnswer) {
+            const selectedOption = document.querySelector(`input[name="quiz${quizNum}"]:checked`);
+            const resultDiv = document.getElementById(`result${quizNum}`);
+            
+            if (!selectedOption) {
+                return;
+            }
+
+            const userAnswer = selectedOption.value;
+            const options = document.querySelectorAll(`input[name="quiz${quizNum}"]`);
+            
+            // Disable all options
+            options.forEach(opt => {
+                opt.disabled = true;
+                const label = opt.closest('label');
+                label.classList.add('disabled');
+            });
+
+            // Check answer
+            if (userAnswer === correctAnswer) {
+                selectedOption.closest('label').classList.add('correct');
+                resultDiv.innerHTML = '<strong style="color: #fff;">✅ إجابة صحيحة! أحسنت!</strong>';
+                resultDiv.className = 'quiz-result show success';
+            } else {
+                selectedOption.closest('label').classList.add('wrong');
+                // Highlight correct answer
+                options.forEach(opt => {
+                    if (opt.value === correctAnswer) {
+                        opt.closest('label').classList.add('correct');
+                    }
+                });
+                resultDiv.innerHTML = '<strong style="color: #fff;">❌ إجابة خاطئة. الإجابة الصحيحة موضحة باللون الأخضر!</strong>';
+                resultDiv.className = 'quiz-result show error';
+            }
+
+            // Hide check button
+            const checkButton = selectedOption.closest('.quiz-box').querySelector('.btn-check');
+            if (checkButton) {
+                checkButton.style.display = 'none';
+            }
+
+            // Update score
+            updateQuizScore();
+        }
+
+        // Initialize auto-check for all quizzes
+        document.addEventListener('DOMContentLoaded', function() {
+            setupAutoCheck(1, 'a');
+            setupAutoCheck(2, 'b');
+            setupAutoCheck(3, 'b');
+            setupAutoCheck(4, 'b');
+            setupAutoCheck(5, 'b');
+            setupAutoCheck(6, 'b');
+            setupAutoCheck(7, 'b');
+            setupAutoCheck(8, 'b');
+            setupAutoCheck(9, 'a');
+        });
+
+        // Setup auto-check for each quiz
+        function setupAutoCheck(quizNum, correctAnswer) {
+            const options = document.querySelectorAll(`input[name="quiz${quizNum}"]`);
+            options.forEach(option => {
+                option.addEventListener('change', function() {
+                    if (this.checked) {
+                        checkQuiz(quizNum, correctAnswer);
+                    }
+                });
+            });
+        }
+
+        // Update Quiz Score
+        function updateQuizScore() {
+            const allQuizzes = document.querySelectorAll('.quiz-box');
+            let totalQuizzes = allQuizzes.length;
+            let correctAnswers = 0;
+
+            allQuizzes.forEach(quiz => {
+                const resultDiv = quiz.querySelector('.quiz-result.show');
+                if (resultDiv && resultDiv.classList.contains('success')) {
+                    correctAnswers++;
+                }
+            });
+
+            // Show score if all quizzes are answered
+            const answeredQuizzes = document.querySelectorAll('.quiz-result.show').length;
+            if (answeredQuizzes === totalQuizzes) {
+                let scoreBox = document.getElementById('final-score');
+                if (!scoreBox) {
+                    scoreBox = document.createElement('div');
+                    scoreBox.id = 'final-score';
+                    scoreBox.className = 'quiz-score';
+                    document.querySelector('.lesson-card:last-of-type').appendChild(scoreBox);
+                }
+                const percentage = Math.round((correctAnswers / totalQuizzes) * 100);
+                scoreBox.innerHTML = `
+                    <h3 style="color: #fff; margin-bottom: 10px;">🎯 النتيجة النهائية</h3>
+                    <p style="font-size: 1.5rem; margin: 10px 0;">
+                        ${correctAnswers} من ${totalQuizzes} صحيح
+                    </p>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">
+                        ${percentage}%
+                    </p>
+                    <p style="margin-top: 15px;">
+                        ${percentage >= 80 ? '🌟 ممتاز! أنت تفهم CSS و HTML جيداً!' : 
+                          percentage >= 60 ? '👍 جيد! استمر في التعلم!' : 
+                          '💪 لا بأس، استمر في الممارسة!'}
+                    </p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
+
